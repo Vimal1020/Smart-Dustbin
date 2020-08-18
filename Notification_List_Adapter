@@ -1,0 +1,47 @@
+package com.example.capston.Adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.capston.DataModels.NotificationModel;
+import com.example.capston.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class NotificationListAdapter extends ArrayAdapter<NotificationModel> {
+    private Context mContext;
+    private List<NotificationModel> notificationList = new ArrayList<>();
+
+    public NotificationListAdapter(@NonNull Context context, @LayoutRes ArrayList<NotificationModel> list) {
+        super(context, 0 , list);
+        mContext = context;
+        notificationList = list;
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View listItem = convertView;
+        if(listItem == null)
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.notification_list_item,parent,false);
+
+        NotificationModel currentNoti = notificationList.get(position);
+
+        TextView message = (TextView) listItem.findViewById(R.id.noti_message);
+        message.setText(currentNoti.message);
+
+        TextView dateView = (TextView) listItem.findViewById(R.id.noti_Date);
+        dateView.setText(currentNoti.message_date_Str);
+
+        return listItem;
+    }
+}
